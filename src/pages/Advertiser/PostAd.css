@@ -1,0 +1,93 @@
+.post-ad-wrapper {
+min-height: 100vh;
+display: flex;
+justify-content: center;
+align-items: center;
+background: url('../../assets/bgImage.jpg') no-repeat center center fixed;
+background-size: cover;
+padding: 20px;
+font-family: 'Inter', sans-serif;
+}
+
+.post-ad-card {
+background: rgba(255, 255, 255, 0.1);
+backdrop-filter: blur(25px);
+-webkit-backdrop-filter: blur(25px);
+border-radius: 30px;
+width: 100%;
+max-width: 600px;
+border: 1px solid rgba(255, 255, 255, 0.2);
+box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+overflow: hidden;
+}
+
+.card-header {
+background: #00d2ff; /* Your teal/blue color from images */
+padding: 20px;
+text-align: center;
+color: white;
+}
+
+.card-content {
+padding: 30px;
+}
+
+.upload-area {
+border: 2px dashed rgba(255, 255, 255, 0.4);
+border-radius: 20px;
+padding: 40px;
+text-align: center;
+color: white;
+margin-bottom: 20px;
+background: rgba(255, 255, 255, 0.05);
+cursor: pointer;
+}
+
+.form-row {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 15px;
+margin-bottom: 15px;
+}
+
+.input-field {
+width: 100%;
+padding: 12px;
+background: rgba(255, 255, 255, 0.1);
+border: 1px solid rgba(255, 255, 255, 0.2);
+border-radius: 10px;
+color: white;
+outline: none;
+}
+
+.label-text {
+display: block;
+color: white;
+font-size: 13px;
+margin-bottom: 5px;
+text-align: left;
+}
+
+.btn-primary {
+background: #00d2ff;
+color: white;
+border: none;
+padding: 15px 30px;
+border-radius: 12px;
+font-weight: bold;
+cursor: pointer;
+width: 100%;
+margin-top: 10px;
+text-transform: uppercase;
+}
+
+.btn-secondary {
+background: rgba(255, 255, 255, 0.2);
+color: white;
+border: none;
+padding: 15px;
+border-radius: 12px;
+width: 100%;
+margin-top: 10px;
+cursor: pointer;
+}

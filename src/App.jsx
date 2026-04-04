@@ -1,0 +1,67 @@
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import Sidebar from './components/Layout/Sidebar';
+import Signup from './pages/Auth/Signup';
+import Login from './pages/Auth/Login';
+import Dashboard from './pages/Advertiser/Dashboard';
+import MyAds from './pages/Advertiser/MyAds';
+import PostAd from './pages/Advertiser/PostAd';
+import FindDrivers from './pages/Advertiser/FindDrivers';
+import AdsList from './pages/Advertiser/AdsList';
+
+// A simple wrapper to keep the Sidebar consistent on Advertiser pages
+const AdvertiserWrapper = ({ children }) => (
+  <div style={{ display: 'flex' }}>
+    <Sidebar />
+    <div style={{ 
+      marginLeft: 'var(--sidebar-width)', 
+      flex: 1, 
+      height: '100vh', 
+      overflowY: 'auto',
+      background: 'var(--bg-light)' 
+    }}>
+      {children}
+    </div>
+  </div>
+);
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        {/* Auth Routes */}
+        <Route path="/" element={<Navigate to="/signup" />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+
+        {/* Advertiser Routes */}
+        <Route path="/advertiser/home" element={
+          <AdvertiserWrapper> <Dashboard /> </AdvertiserWrapper>
+        } />
+        <Route path="/advertiser/my-ads" element={
+          <AdvertiserWrapper> <MyAds /> </AdvertiserWrapper>
+        } />
+
+        <Route path="/advertiser/post-ad" element={
+          <AdvertiserWrapper> <PostAd /> </AdvertiserWrapper>
+        } />
+
+
+        <Route path="/advertiser/ads-list" element={
+          <AdvertiserWrapper><AdsList /> <FindDrivers /> </AdvertiserWrapper>
+        } />
+
+        <Route path="/advertiser/find-drivers" element={
+          <AdvertiserWrapper> <FindDrivers /> </AdvertiserWrapper>
+        } />
+
+        {/* <Route path="/advertiser/stats" element={<MyAds />} /> */}
+
+        
+        {/* Add more routes as we build them (Stats, Account, etc.) */}
+      </Routes>
+    </Router>
+  );
+}
+
+export default App;

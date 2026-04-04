@@ -1,0 +1,93 @@
+.auth-wrapper {
+height: 100vh;
+width: 100vw;
+display: flex;
+align-items: center;
+justify-content: center;
+/* Background image from your assets */
+background: url('../../assets/bgImage.png') no-repeat center center fixed;
+background-size: cover;
+}
+
+.auth-card {
+/* This creates the blurry "Glass" effect */
+background: rgba(255, 255, 255, 0.1);
+backdrop-filter: blur(20px);
+-webkit-backdrop-filter: blur(20px);
+
+padding: 40px;
+border-radius: 30px;
+width: 100%;
+max-width: 420px;
+text-align: center;
+border: 1px solid rgba(255, 255, 255, 0.2);
+box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Logo Styling at the top of the card */
+.logo-container {
+margin-bottom: 20px;
+}
+
+.logo-img {
+width: 100px; /* Adjust size to fit your logo */
+height: auto;
+}
+
+.auth-card h2 {
+color: #ffffff;
+margin-bottom: 20px;
+font-weight: 600;
+}
+
+.type-toggle {
+display: flex;
+background: rgba(0, 0, 0, 0.2);
+padding: 5px;
+border-radius: 12px;
+margin-bottom: 20px;
+}
+
+.type-btn {
+flex: 1;
+padding: 10px;
+border: none;
+border-radius: 10px;
+cursor: pointer;
+background: transparent;
+color: #ffffff;
+font-weight: 600;
+}
+
+.type-btn.active {
+background: #00d2ff; /* Electric Blue */
+color: #000000;
+}
+
+.auth-form input {
+width: 100%;
+padding: 15px;
+margin-bottom: 12px;
+border-radius: 12px;
+border: 1px solid rgba(255, 255, 255, 0.3);
+background: rgba(255, 255, 255, 0.1);
+color: white;
+outline: none;
+box-sizing: border-box;
+}
+
+.auth-form input::placeholder {
+color: rgba(255, 255, 255, 0.7);
+}
+
+.btn-primary {
+width: 100%;
+padding: 16px;
+border: none;
+border-radius: 12px;
+background: linear-gradient(90deg, #00d2ff, #3a7bd5);
+color: white;
+font-weight: bold;
+cursor: pointer;
+text-transform: uppercase;
+}

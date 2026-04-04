@@ -1,0 +1,134 @@
+.wrapper {
+  padding: 30px;
+  background-color: #0f0f1e; /* Darker shade for attraction */
+  min-height: 100vh;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.tabGroup {
+  display: flex;
+  background: #1a1a2e;
+  padding: 5px;
+  border-radius: 12px;
+}
+
+.tab, .tabActive {
+  padding: 10px 25px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #94a3b8;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.tabActive {
+  background: #3f51b5;
+  color: white;
+  box-shadow: 0 4px 15px rgba(63, 81, 181, 0.4);
+}
+
+/* The Horizontal Card matching your Mobile Screen */
+.horizontalCard {
+  background: #1e1e30;
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  border: 1px solid rgba(255,255,255,0.05);
+  transition: transform 0.2s;
+}
+
+.horizontalCard:hover {
+  transform: scale(1.01);
+  border-color: #3f51b5;
+}
+
+.carSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-right: 25px;
+  border-right: 1px solid #333;
+  cursor: pointer;
+}
+
+.carCircle {
+  background: linear-gradient(135deg, #3f51b5, #1a1a2e);
+  padding: 15px;
+  border-radius: 50%;
+  margin-bottom: 8px;
+}
+
+.carSection span {
+  font-size: 11px;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.infoSection {
+  flex: 1;
+  padding-left: 25px;
+}
+
+.infoSection h3 {
+  color: white;
+  margin: 0 0 8px 0;
+  font-size: 1.3rem;
+}
+
+.statsRow {
+  display: flex;
+  gap: 20px;
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+.actionSection {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.detailsBtn {
+  background: #3f51b5;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.rateBtn {
+  background: transparent;
+  color: #3f51b5;
+  border: 1px solid #3f51b5;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.fab {
+  background: #3f51b5;
+  color: white;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+  cursor: pointer;
+}
