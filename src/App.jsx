@@ -38,9 +38,16 @@ function App() {
         <Route path="/advertiser/home" element={
           <AdvertiserWrapper> <Dashboard /> </AdvertiserWrapper>
         } />
-        <Route path="/advertiser/my-ads" element={
+
+
+        <Route path="/advertiser/my-ads" element={<MyAds />} />
+        <Route path="/advertiser/ad/:id" element={<AdDetails />} />
+        <Route path="/advertiser/zones/:id" element={<ZoneSelection />} />
+
+        
+        {/* <Route path="/advertiser/my-ads" element={
           <AdvertiserWrapper> <MyAds /> </AdvertiserWrapper>
-        } />
+        } /> */}
 
         <Route path="/advertiser/post-ad" element={
           <AdvertiserWrapper> <PostAd /> </AdvertiserWrapper>
