@@ -9,7 +9,7 @@ export default function PostAdModal({ onClose, refreshAds }) {
 
   const handlePost = async () => {
     try {
-      // await axios.post('http://your-backend-api.com/ads', formData);
+      await api.post('/api/ad/createAd', formData);
       alert("Ad Posted Successfully!");
       onClose();
     } catch (e) { alert("Error posting ad"); }
@@ -47,9 +47,9 @@ export default function PostAdModal({ onClose, refreshAds }) {
           <label style={styles.label}>Budget per km*</label>
           <input style={styles.input} placeholder="$ 0.00" type="number" onChange={e => setFormData({...formData, budget: e.target.value})} />
 
-          <button style={styles.locationBtn}>
+          {/* <button style={styles.locationBtn}>
             <MapPin size={18} /> Add Location
-          </button>
+          </button> */}
 
           <div style={styles.footerBtns}>
             <button style={styles.btnMain} onClick={handlePost}>Post Ad</button>

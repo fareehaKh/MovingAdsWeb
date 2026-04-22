@@ -44,7 +44,12 @@ function App() {
         <Route path="/advertiser/ad/:id" element={<AdDetails />} />
         <Route path="/advertiser/zones/:id" element={<ZoneSelection />} />
 
-        
+        <Route path="/advertiser/ad/:id/track" element={<TrackDriver />} />
+        <Route path="/advertiser/ad/:id/rate" element={<RateDriver />} />
+
+        <Route path="/advertiser/fence/:adId" element={<GeofenceScreen />} />
+        <Route path="/advertiser/fence/:adId" element={<AdFenceMap />} />
+
         {/* <Route path="/advertiser/my-ads" element={
           <AdvertiserWrapper> <MyAds /> </AdvertiserWrapper>
         } /> */}
