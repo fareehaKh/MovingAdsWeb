@@ -14,7 +14,8 @@ export default function Login() {
 
     try {
       const res = await axios.post(
-        `https://localhost:44391/api/user/login/${email}/${password}`
+        `http://10.220.203.133/MovingAdsBackend/api/user/login/${email}/${password}`
+        
       );
 
       localStorage.setItem('user', JSON.stringify(res.data));
@@ -55,7 +56,9 @@ export default function Login() {
 
           <button type="submit" className="btn-primary">
             Login
+            {console.log("email: " ,{email}, "pass:", {password})}
           </button>
+          
         </form>
 
         <p style={{ color: '#888', marginTop: '20px' }}>

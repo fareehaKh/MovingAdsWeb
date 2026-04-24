@@ -5,7 +5,7 @@ import Signup from './pages/Auth/Signup';
 import Login from './pages/Auth/Login';
 import Dashboard from './pages/Advertiser/Dashboard';
 import MyAds from './pages/Advertiser/MyAds';
-import PostAd from './pages/Advertiser/PostAd';
+import PostAdModal from './pages/Advertiser/PostAdModal';
 import FindDrivers from './pages/Advertiser/FindDrivers';
 import AdsList from './pages/Advertiser/AdsList';
 import AdDetails from './pages/Advertiser/AdDetails';
@@ -13,6 +13,7 @@ import TrackDriver from './pages/Advertiser/TrachDriver';
 import RateDriver from './pages/Advertiser/RateDriver';
 import GeoFenceScreen from './pages/Advertiser/GeoFenceScreen';
 import AdFenceMap from './pages/Advertiser/AdFenceMap';
+import AdSchedule from './pages/Advertiser/AdSchedule';
 
 // A simple wrapper to keep the Sidebar consistent on Advertiser pages
 const AdvertiserWrapper = ({ children }) => (
@@ -58,9 +59,9 @@ function App() {
           <AdvertiserWrapper> <MyAds /> </AdvertiserWrapper>
         } /> */}
 
-        <Route path="/advertiser/post-ad" element={
+        {/* <Route path="/advertiser/post-ad" element={
           <AdvertiserWrapper> <PostAd /> </AdvertiserWrapper>
-        } />
+        } /> */}
 
 
         <Route path="/advertiser/ads-list" element={
@@ -70,6 +71,10 @@ function App() {
         <Route path="/advertiser/find-drivers" element={
           <AdvertiserWrapper> <FindDrivers /> </AdvertiserWrapper>
         } />
+
+        <Route path="/advertiser/schedule/:adId" element={<AdSchedule />} />
+        <Route path="/advertiser/post-ad-modal" element={<PostAdModal />} />
+        
 
         {/* <Route path="/advertiser/stats" element={<MyAds />} /> */}
 

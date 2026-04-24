@@ -1,60 +1,143 @@
 import React, { useState } from 'react';
-import { X, Upload, MapPin } from 'lucide-react';
+import { X, Upload } from 'lucide-react';
 import axios from 'axios';
+import { api } from '../../api/api';
 
 export default function PostAdModal({ onClose, refreshAds }) {
+
   const [formData, setFormData] = useState({
-    title: '', type: '', category: '', start: '', end: '', budget: ''
+    AdTitle: '',
+    MediaType: 'image',
+    MediaName: '',
+    MediaPath: '',
+    UserId: JSON.parse(localStorage.getItem("user"))?.UserId,
+    StartingDate: '',
+    EndingDate: '',
+    Category: '',
+    Status: 'inactive',
   });
 
+  const [file, setFile] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  // ✅ Upload to Cloudinary
+  const uploadToCloudinary = async (file) => {
+    const data = new FormData();
+    data.append("file", file);
+    data.append("upload_preset", "MovingAds"); // 🔴 change this
+    data.append("cloud_name", "dgolfena6"); // optional if using URL endpoint
+
+    const res = await axios.post(
+      "https://api.cloudinary.com/v1_1/dgolfena6/upload",
+      data
+    );
+console.log("res");
+    return res.data.secure_url;
+  };
+
+  // ✅ POST AD
   const handlePost = async () => {
     try {
-      await api.post('/api/ad/createAd', formData);
+      console.log("payload1234");
+      setLoading(true);
+
+      let mediaUrl = "";
+
+      // 1. upload image first
+      if (file) {
+        mediaUrl = await uploadToCloudinary(file);
+      }
+
+      // 2. send to backend
+      const payload = {
+        ...formData,
+        MediaPath: mediaUrl,
+        MediaName: file?.name || ""
+      };
+
+      await api.post('/api/ad/createAd', payload);
+      console.log(payload);
+
       alert("Ad Posted Successfully!");
+      refreshAds?.();
       onClose();
-    } catch (e) { alert("Error posting ad"); }
+
+    } catch (e) {
+      console.log(e);
+      // console.log(payload);
+      alert("Error posting ad");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div style={styles.overlay}>
       <div style={styles.modal}>
         <div style={styles.header}>
-          <X onClick={onClose} style={{cursor:'pointer'}} />
-          <h3 style={{margin:0}}>Post New Ad</h3>
-          <div style={{width:24}}></div>
+          <X onClick={onClose} style={{ cursor: 'pointer' }} />
+          <h3>Post New Ad</h3>
+          <div />
         </div>
 
         <div style={styles.body}>
+
+          {/* FILE UPLOAD */}
           <div style={styles.uploadBox}>
-            <Upload size={40} color="#888" />
-            <p>Upload Ad Image or Video</p>
+            <input
+              type="file"
+              accept="image/*,video/*"
+              onChange={(e) => setFile(e.target.files[0])}
+            />
+            <p>{file ? file.name : "Upload Ad Image/Video"}</p>
           </div>
 
-          <label style={styles.label}>Ad Title*</label>
-          <input style={styles.input} placeholder="Enter ad title" onChange={e => setFormData({...formData, title: e.target.value})} />
+          <label>Ad Title</label>
+          <input
+            style={styles.input}
+            onChange={(e) =>
+              setFormData({ ...formData, AdTitle: e.target.value })
+            }
+          />
+
+          <label>Category</label>
+          <input
+            style={styles.input}
+            onChange={(e) =>
+              setFormData({ ...formData, Category: e.target.value })
+            }
+          />
 
           <div style={styles.row}>
-            <div style={{flex:1}}>
-              <label style={styles.label}>Start Date*</label>
-              <input type="date" style={styles.input} onChange={e => setFormData({...formData, start: e.target.value})} />
-            </div>
-            <div style={{flex:1}}>
-              <label style={styles.label}>End Date*</label>
-              <input type="date" style={styles.input} onChange={e => setFormData({...formData, end: e.target.value})} />
-            </div>
+            <input
+              type="date"
+              style={styles.input}
+              onChange={(e) =>
+                setFormData({ ...formData, StartingDate: e.target.value })
+              }
+            />
+            <input
+              type="date"
+              style={styles.input}
+              onChange={(e) =>
+                setFormData({ ...formData, EndingDate: e.target.value })
+              }
+            />
           </div>
 
-          <label style={styles.label}>Budget per km*</label>
-          <input style={styles.input} placeholder="$ 0.00" type="number" onChange={e => setFormData({...formData, budget: e.target.value})} />
+          <input
+            type="number"
+            placeholder="Budget"
+            style={styles.input}
+            onChange={(e) =>
+              setFormData({ ...formData, Budget: e.target.value })
+            }
+          />
 
-          {/* <button style={styles.locationBtn}>
-            <MapPin size={18} /> Add Location
-          </button> */}
+          <button style={styles.btnMain} onClick={handlePost}>
+            {loading ? "Posting..." : "Post Ad"}
+          </button>
 
-          <div style={styles.footerBtns}>
-            <button style={styles.btnMain} onClick={handlePost}>Post Ad</button>
-            <button style={styles.btnDraft}>Save to Drafts</button>
-          </div>
         </div>
       </div>
     </div>
@@ -62,16 +145,51 @@ export default function PostAdModal({ onClose, refreshAds }) {
 }
 
 const styles = {
-  overlay: { position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.7)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 1000 },
-  modal: { background: 'white', width: '95%', maxWidth: '450px', height: '90vh', borderRadius: '20px', overflowY: 'auto' },
-  header: { background: '#00ccbb', color: 'white', padding: '15px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderRadius: '20px 20px 0 0' },
-  body: { padding: '20px' },
-  uploadBox: { border: '2px dashed #ddd', borderRadius: '15px', padding: '30px', textAlign: 'center', marginBottom: '20px', background: '#f9f9f9' },
-  label: { fontSize: '13px', fontWeight: 'bold', display: 'block', marginBottom: '5px', marginTop: '10px' },
-  input: { width: '100%', padding: '12px', borderRadius: '10px', border: '1px solid #ddd', marginBottom: '10px', boxSizing: 'border-box' },
-  row: { display: 'flex', gap: '10px' },
-  locationBtn: { width: '100%', padding: '12px', background: '#00ccbb', color: 'white', border: 'none', borderRadius: '10px', display: 'flex', justifyContent: 'center', gap: '10px', marginTop: '10px' },
-  footerBtns: { marginTop: '20px', display: 'flex', flexDirection: 'column', gap: '10px' },
-  btnMain: { padding: '15px', background: '#3498db', color: 'white', border: 'none', borderRadius: '10px', fontWeight: 'bold' },
-  btnDraft: { padding: '15px', background: 'white', color: '#3498db', border: '1px solid #3498db', borderRadius: '10px' }
+  overlay: {
+    position: 'fixed',
+    top: 0, left: 0, right: 0, bottom: 0,
+    background: 'rgba(0,0,0,0.7)',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  modal: {
+    background: 'white',
+    width: '450px',
+    borderRadius: '20px',
+    overflow: 'hidden'
+  },
+  header: {
+    background: '#00ccbb',
+    color: 'white',
+    padding: 15,
+    display: 'flex',
+    justifyContent: 'space-between'
+  },
+  body: { padding: 20 },
+  uploadBox: {
+    border: '2px dashed #ccc',
+    padding: 20,
+    marginBottom: 15,
+    textAlign: 'center'
+  },
+  input: {
+    width: '100%',
+    padding: 10,
+    marginBottom: 10,
+    border: '1px solid #ddd',
+    borderRadius: 8
+  },
+  row: {
+    display: 'flex',
+    gap: 10
+  },
+  btnMain: {
+    width: '100%',
+    padding: 12,
+    background: '#3498db',
+    color: 'white',
+    border: 'none',
+    borderRadius: 10
+  }
 };
