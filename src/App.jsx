@@ -8,6 +8,11 @@ import MyAds from './pages/Advertiser/MyAds';
 import PostAd from './pages/Advertiser/PostAd';
 import FindDrivers from './pages/Advertiser/FindDrivers';
 import AdsList from './pages/Advertiser/AdsList';
+import AdDetails from './pages/Advertiser/AdDetails';
+import TrackDriver from './pages/Advertiser/TrachDriver';
+import RateDriver from './pages/Advertiser/RateDriver';
+import GeoFenceScreen from './pages/Advertiser/GeoFenceScreen';
+import AdFenceMap from './pages/Advertiser/AdFenceMap';
 
 // A simple wrapper to keep the Sidebar consistent on Advertiser pages
 const AdvertiserWrapper = ({ children }) => (
@@ -42,12 +47,11 @@ function App() {
 
         <Route path="/advertiser/my-ads" element={<MyAds />} />
         <Route path="/advertiser/ad/:id" element={<AdDetails />} />
-        <Route path="/advertiser/zones/:id" element={<ZoneSelection />} />
 
         <Route path="/advertiser/ad/:id/track" element={<TrackDriver />} />
         <Route path="/advertiser/ad/:id/rate" element={<RateDriver />} />
 
-        <Route path="/advertiser/fence/:adId" element={<GeofenceScreen />} />
+        <Route path="/advertiser/fence/:adId" element={<GeoFenceScreen />} />
         <Route path="/advertiser/fence/:adId" element={<AdFenceMap />} />
 
         {/* <Route path="/advertiser/my-ads" element={

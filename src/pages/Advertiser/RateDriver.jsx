@@ -1,17 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { useParams } from "react-router-dom";
+import { api } from "../../api/api";
 
 export default function RateDriver() {
-  const [rating, setRating] = useState(0);
+  const [rating, setRating] = useState(1);
 
-  const submitRating = () => {
-    alert("Rating submitted: " + rating);
-    // API:
-    await api.post('/api/rating/add', {
-        RatedBy,
-        RatedTo,
-        RatePoints,
-        AdId
-    });
+  const { adId, driverId } = useParams();
+
+  // Temporary logged-in advertiser id
+  const ratedBy = 1;
+
+  const submitRating = async () => {
+    try {
+      await api.post("/api/rating/add", {
+        RatedBy: ratedBy,
+        RatedTo: Number(driverId),
+        RatePoints: Number(rating),
+        AdId: Number(adId),
+      });
+
+      alert("Rating submitted successfully!");
+    } catch (error) {
+      console.log(error);
+      alert("Failed to submit rating");
+    }
   };
 
   return (
@@ -24,6 +36,11 @@ export default function RateDriver() {
         max="5"
         value={rating}
         onChange={(e) => setRating(e.target.value)}
+        style={{
+          padding: "8px",
+          width: "80px",
+          marginRight: "10px",
+        }}
       />
 
       <button onClick={submitRating}>
